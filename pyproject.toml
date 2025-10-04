@@ -1,0 +1,23 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "cognis-comint-osquery"
+version = "0.1.0"
+description = "DISA STIG-aligned osquery configs + RMF mapper"
+license = {text = "Apache-2.0"}
+requires-python = ">=3.10"
+authors = [{name="Cognis Digital", email="suite@cognis.digital"}]
+readme = "README.md"
+keywords = ["military","ic","dod","cognis-digital","comint-osquery"]
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0", "pytest-cov"]
+
+[project.scripts]
+comint-osquery = "comint_osquery.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["comint_osquery", "cognis_mil"]
