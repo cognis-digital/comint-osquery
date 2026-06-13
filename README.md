@@ -5,6 +5,12 @@
 
 > DISA STIG query pack + RMF mapper. Cognis additions sit on top of unmodified osquery.
 
+<!-- cognis:layman:start -->
+## What is this?
+
+comint-osquery is a command-line tool that checks a Linux server or workstation for common security misconfigurations required by the U.S. Department of Defense. It reads the results produced by osquery — a free host-monitoring agent — and flags problems like disabled FIPS encryption, SSH root login being allowed, or the audit daemon not running. The tool produces reports in plain text, JSON, or machine-readable formats (SARIF, OSCAL) that can feed directly into compliance tracking systems like eMASS or Xacta. It is intended for system administrators and security engineers working in military or government environments who need to verify DISA STIG compliance quickly and automatically.
+<!-- cognis:layman:end -->
+
 ## Upstream
 
 Forks / wraps **https://github.com/osquery/osquery**. See [`UPSTREAM.md`](./UPSTREAM.md) for the
@@ -15,6 +21,52 @@ licensing posture, supported commits, and how to upgrade.
 - 8 (and growing) DISA STIG queries as an osquery pack
 - Result mapper translates raw osquery rows → NIST/STIG/ATT&CK findings
 - OSCAL Assessment Results emitter for eMASS/Xacta import
+
+<!-- cognis:domains:start -->
+## Domains
+
+**Primary domain:** Intelligence & OSINT  ·  **JTF MERIDIAN division:** NULLBYTE · BLACK CELL
+
+**Topics:** `cognis` `osint` `intelligence` `recon`
+
+Part of the **Cognis Neural Suite** — 300+ source-available tools organized across 12 domains under the JTF MERIDIAN command structure. See the [suite on GitHub](https://github.com/cognis-digital) and [jtf-meridian](https://github.com/cognis-digital/jtf-meridian) for how the pieces fit together.
+<!-- cognis:domains:end -->
+
+<!-- cognis:install:start -->
+## Install
+
+`comint-osquery` is source-available (not published to PyPI) — every method below installs
+straight from GitHub. Pick whichever you prefer; the one-line scripts auto-detect
+the best tool available on your machine.
+
+**One-liner (Linux / macOS):**
+```sh
+curl -fsSL https://raw.githubusercontent.com/cognis-digital/comint-osquery/HEAD/install.sh | sh
+```
+
+**One-liner (Windows PowerShell):**
+```powershell
+irm https://raw.githubusercontent.com/cognis-digital/comint-osquery/HEAD/install.ps1 | iex
+```
+
+**Or install manually — any one of:**
+```sh
+pipx install "git+https://github.com/cognis-digital/comint-osquery.git"     # isolated (recommended)
+uv tool install "git+https://github.com/cognis-digital/comint-osquery.git"  # uv
+pip install "git+https://github.com/cognis-digital/comint-osquery.git"      # pip
+```
+
+**From source:**
+```sh
+git clone https://github.com/cognis-digital/comint-osquery.git
+cd comint-osquery && pip install .
+```
+
+Then run:
+```sh
+comint-osquery --help
+```
+<!-- cognis:install:end -->
 
 ## Install
 
@@ -67,7 +119,7 @@ These are emitted in JSON, SARIF, and the OSCAL skeleton.
 ```yaml
 - name: comint-osquery scan
   run: |
-    pip install cognis-comint-osquery
+    pip install "git+https://github.com/cognis-digital/comint-osquery.git"
     comint-osquery . --format=oscal --out=assessment-results.json --fail-on=high
 - name: Upload to eMASS/Xacta
   run: cognis-rmf-package import assessment-results.json

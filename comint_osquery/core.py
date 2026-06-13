@@ -3,7 +3,7 @@
 Cognis additions only. Upstream osquery is Apache-2.0, separately installed.
 """
 from __future__ import annotations
-import json, re
+import json
 from pathlib import Path
 from cognis_mil import ScanResult, Finding, Severity
 

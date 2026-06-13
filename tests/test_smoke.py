@@ -1,5 +1,5 @@
 from pathlib import Path
-from comint_osquery.core import scan, emit_query_pack, STIG_PACK
+from comint_osquery.core import scan, emit_query_pack
 D = Path(__file__).parent.parent / "demos" / "01-failing-host"
 def test_pack_emits():
     s = emit_query_pack()
