@@ -5,6 +5,31 @@
 
 > DISA STIG query pack + RMF mapper. Cognis additions sit on top of unmodified osquery.
 
+## Usage — step by step
+
+1. **Install** the shared library once for the ecosystem, then this tool's `comint-osquery` command:
+   ```bash
+   pip install cognis-mil      # shared library (once)
+   pip install -e .            # this tool
+   ```
+2. **Run a scan** of STIG-aligned host telemetry — the positional `target` is a path (defaults to `.`):
+   ```bash
+   comint-osquery .
+   ```
+3. **Set the classification banner** (operator-supplied PLACEHOLDER; the tool does not interpret it) and choose an output format (`console`, `json`, `markdown`, `sarif`, `oscal`):
+   ```bash
+   comint-osquery . --classification "UNCLASSIFIED//FOR PUBLIC RELEASE" --format json
+   ```
+4. **Write the report to a file** for review or evidence:
+   ```bash
+   comint-osquery . --format oscal --out comint.oscal.json
+   ```
+5. **Gate CI / RMF pipelines** with `--fail-on` (`very_high|high|moderate|low|none`), which exits `1` when a finding meets that severity:
+   ```yaml
+   - run: pip install cognis-mil && pip install -e .
+   - run: comint-osquery . --fail-on high --format sarif --out comint.sarif
+   ```
+
 ## Upstream
 
 Forks / wraps **https://github.com/osquery/osquery**. See [`UPSTREAM.md`](./UPSTREAM.md) for the
