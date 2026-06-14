@@ -23,3 +23,6 @@ comint-osquery = "comint_osquery.cli:main"
 
 [tool.hatch.build.targets.wheel]
 packages = ["comint_osquery", "cognis_mil"]
+
+[tool.hatch.metadata]
+allow-direct-references = true
