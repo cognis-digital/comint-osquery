@@ -6,19 +6,22 @@ in the values at runtime. This library validates *shape*, not content.
 Reference: ODNI CAPCO Implementation Manual (unclassified, public).
 """
 from __future__ import annotations
+
 from dataclasses import dataclass, field
 
 VALID_LEVELS = ["UNCLASSIFIED", "CONFIDENTIAL", "SECRET", "TOP SECRET"]
-VALID_FGI    = ["FGI"]  # Foreign Government Information marker placeholder
+VALID_FGI = ["FGI"]  # Foreign Government Information marker placeholder
+
 
 @dataclass
 class ClassificationBanner:
     """Builds a CAPCO-shape banner. Validation of *form*, not content."""
-    level: str = "UNCLASSIFIED"        # operator-supplied
-    sci: list[str] = field(default_factory=list)      # e.g. operator-supplied SCI compartments
-    sap: list[str] = field(default_factory=list)      # SAP program IDs (operator-supplied)
-    dissem: list[str] = field(default_factory=list)   # NOFORN/REL TO/ORCON etc. (operator-supplied)
-    nonic: list[str] = field(default_factory=list)    # Non-IC dissem (FOUO/CUI etc.)
+
+    level: str = "UNCLASSIFIED"                          # operator-supplied
+    sci: list[str] = field(default_factory=list)         # e.g. operator-supplied SCI compartments
+    sap: list[str] = field(default_factory=list)         # SAP program IDs (operator-supplied)
+    dissem: list[str] = field(default_factory=list)      # NOFORN/REL TO/ORCON etc. (operator-supplied)
+    nonic: list[str] = field(default_factory=list)       # Non-IC dissem (FOUO/CUI etc.)
 
     def validate(self) -> tuple[bool, list[str]]:
         errs = []
@@ -32,13 +35,18 @@ class ClassificationBanner:
     def render(self) -> str:
         """Render the banner-line string. Operator content is passed through."""
         parts = [self.level]
-        if self.sci: parts.append("/".join(self.sci))
-        if self.sap: parts.append("SAR-" + "/".join(self.sap))
+        if self.sci:
+            parts.append("/".join(self.sci))
+        if self.sap:
+            parts.append("SAR-" + "/".join(self.sap))
         suffix = []
-        if self.dissem: suffix.extend(self.dissem)
-        if self.nonic:  suffix.extend(self.nonic)
+        if self.dissem:
+            suffix.extend(self.dissem)
+        if self.nonic:
+            suffix.extend(self.nonic)
         line = "//".join(parts)
-        if suffix: line += "//" + "/".join(suffix)
+        if suffix:
+            line += "//" + "/".join(suffix)
         return line
 
     @classmethod
