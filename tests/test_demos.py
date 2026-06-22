@@ -42,3 +42,19 @@ def test_parse_error_is_low_not_crash():
     r = scan(str(DEMOS / "10-parse-error"))
     assert r.findings[0].id == "CO-PARSE"
     assert r.findings[0].severity.value == "low"
+
+
+def test_systemic_fleet_demo_present_and_flat_scan():
+    """The systemic demo (12) exists and the flat scan still totals its rows."""
+    d = DEMOS / "12-fleet-systemic"
+    assert (d / "SCENARIO.md").exists()
+    r = scan(str(d))
+    # 3x FIPS + 1x ssh + 1x auditd = 5 findings in the flattened view
+    assert r.total_findings() == 5
+    assert r.items_scanned == 3
+
+
+def test_every_demo_dir_has_scenario_md():
+    for sub in sorted(DEMOS.iterdir()):
+        if sub.is_dir():
+            assert (sub / "SCENARIO.md").exists(), f"{sub.name} missing SCENARIO.md"

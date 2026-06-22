@@ -87,10 +87,90 @@ def _feeds_cli(argv):
     return 1
 
 
+def _fleet_cli(argv):
+    """`comint-osquery fleet <target>` — per-host correlation + baseline drift.
+
+    Unlike the default scan (which flattens a directory into one composite
+    score), this keeps per-host attribution and classifies each failing control
+    as systemic / widespread / isolated, then optionally diffs every host
+    against a baseline.
+    """
+    from . import fleet as fl
+
+    p = argparse.ArgumentParser(prog="comint-osquery fleet",
+                                description="Fleet correlation + baseline-drift analysis.")
+    p.add_argument("target", nargs="?", default=".",
+                   help="Directory of per-host *.json osquery snapshots")
+    p.add_argument("--format", choices=["console", "json"], default="console")
+    p.add_argument("--baseline", help="Host id to use as the golden baseline "
+                   "(default: auto-pick the cleanest host)")
+    p.add_argument("--out", help="Write output to file")
+    p.add_argument("--classification", default="UNCLASSIFIED//FOR PUBLIC RELEASE")
+    args = p.parse_args(argv)
+
+    hosts = fl.scan_fleet(args.target)
+    base = fl.pick_baseline(hosts, args.baseline)
+    drift = fl.baseline_drift(hosts, base) if base else None
+
+    if args.format == "json":
+        out = json.dumps({
+            "classification": args.classification,
+            "summary": fl.fleet_summary(hosts),
+            "drift": drift,
+        }, indent=2, default=str)
+    else:
+        out = fl.render_fleet_report(hosts, drift, classification=args.classification)
+
+    if args.out:
+        open(args.out, "w", encoding="utf-8").write(out)
+        print(f"Wrote {args.out}", file=sys.stderr)
+    else:
+        print(out)
+    return 0
+
+
+def _poam_cli(argv):
+    """`comint-osquery poam <target>` — emit a DISA/eMASS POA&M workbook.
+
+    One row per (failing control, host), with CAT level, STIG/CCI security
+    checks, and severity-derived scheduled-completion dates.
+    """
+    from . import fleet as fl
+
+    p = argparse.ArgumentParser(prog="comint-osquery poam",
+                                description="Generate a DISA POA&M from a scan.")
+    p.add_argument("target", nargs="?", default=".")
+    p.add_argument("--format", choices=["csv", "json"], default="csv")
+    p.add_argument("--office", default="", help="Office/Org column value")
+    p.add_argument("--out", help="Write output to file")
+    args = p.parse_args(argv)
+
+    hosts = fl.scan_fleet(args.target)
+    items = fl.poam_items(hosts, office=args.office)
+    out = fl.poam_to_csv(items) if args.format == "csv" else fl.poam_to_json(items)
+
+    if args.out:
+        open(args.out, "w", encoding="utf-8", newline="").write(out)
+        print(f"Wrote {args.out} ({len(items)} POA&M item(s))", file=sys.stderr)
+    else:
+        print(out)
+    return 0
+
+
 def main():
-    # `feeds` subcommand: edge/air-gap data-feed layer.
+    # Make stdout UTF-8-safe on Windows consoles (cp1252) so emoji/box chars
+    # in reports never crash the run.
+    try:
+        sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:
+        pass
+    # Subcommands route before the default single-target scan CLI.
     if len(sys.argv) > 1 and sys.argv[1] == "feeds":
         sys.exit(_feeds_cli(sys.argv[2:]))
+    if len(sys.argv) > 1 and sys.argv[1] == "fleet":
+        sys.exit(_fleet_cli(sys.argv[2:]))
+    if len(sys.argv) > 1 and sys.argv[1] == "poam":
+        sys.exit(_poam_cli(sys.argv[2:]))
     make_cli("comint-osquery", scan, version=__version__)
 
 

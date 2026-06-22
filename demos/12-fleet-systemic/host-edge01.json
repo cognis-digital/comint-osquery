@@ -1,0 +1,6 @@
+{
+  "fips_not_enforced": [{"path": "/proc/sys/crypto/fips_enabled", "value": "0"}],
+  "ssh_root_login_permitted": [{"path": "/etc/ssh/sshd_config", "value": "yes"}],
+  "audit_daemon_not_running": [],
+  "selinux_not_enforcing": []
+}

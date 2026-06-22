@@ -69,6 +69,8 @@ the data came from, the exact run command, and how to act on the result.
 | `08-fleet-rollup` | 3 hosts, one folder, one scan | 4 findings, per-host attribution |
 | `09-mixed-workstation` | Blank-password kiosk + world-writable dir | severity-triage / `--fail-on` |
 | `10-parse-error` | Truncated snapshot | graceful LOW `CO-PARSE`, no crash |
+| `11-feed-enriched` | Feed-enriched findings | official NIST titles + countermeasures |
+| `12-fleet-systemic` | 3 hosts off one golden image | **systemic** FIPS finding fleet-wide |
 
 ```bash
 comint-osquery demos/01-failing-host/
@@ -86,6 +88,45 @@ comint-osquery <target> --format=markdown    # for PRs / briefings
 comint-osquery <target> --format=oscal       # OSCAL 1.1.2 Assessment Results
 comint-osquery <target> --format=csv         # flat POA&M / spreadsheet import
 ```
+
+## Fleet correlation + POA&M (`fleet` / `poam`)
+
+The default scan flattens a directory of per-host snapshots into one composite
+score. That is right for a single risk number, but it discards the cross-host
+structure continuous-monitoring teams need. The **`fleet`** subcommand keeps
+per-host attribution and classifies every failing control by *blast radius*:
+
+| Scope | Meaning | Response |
+|---|---|---|
+| `systemic` | fails on **every** scanned host | broken golden image / GPO / CM role — **fix once at the source** |
+| `widespread` | fails on ≥ 50% of hosts | drifting baseline — investigate the build pipeline |
+| `isolated` | fails on a single host | a per-host ticket |
+| `partial` | some hosts, below half | targeted remediation |
+
+It also computes **baseline drift** against a golden host (auto-picked as the
+cleanest, or named with `--baseline`), separating *regressions* (host is worse
+than golden — the actionable case) from *improvements* (host is ahead of golden
+— usually means the golden image itself is stale).
+
+```bash
+comint-osquery fleet demos/12-fleet-systemic/                 # console report
+comint-osquery fleet demos/12-fleet-systemic/ --format json   # for a dashboard
+comint-osquery fleet demos/08-fleet-rollup/ --baseline app03  # explicit golden
+```
+
+The **`poam`** subcommand turns a scan straight into a **DISA / eMASS Plan of
+Action & Milestones** workbook — one row per (failing control, host), with the
+CAT level, STIG/CCI security checks, the MITRE ATT&CK technique, and a
+severity-driven *Scheduled Completion Date* (CAT I 30d / CAT II 90d / CAT III
+365d, the conventional RMF cadence). This is the artifact an ISSO hands to an AO.
+
+```bash
+comint-osquery poam demos/08-fleet-rollup/ --office "J6/CYBER"        # CSV (eMASS)
+comint-osquery poam demos/08-fleet-rollup/ --format json --out poam.json
+```
+
+See [`docs/FLEET_CORRELATION.md`](docs/FLEET_CORRELATION.md) for the full
+walkthrough, threat context, and a data-flow diagram.
 
 ## Classification banner
 
