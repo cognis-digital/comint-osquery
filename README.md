@@ -16,7 +16,7 @@
    ```bash
    comint-osquery .
    ```
-3. **Set the classification banner** (operator-supplied PLACEHOLDER; the tool does not interpret it) and choose an output format (`console`, `json`, `markdown`, `sarif`, `oscal`):
+3. **Set the classification banner** (operator-supplied PLACEHOLDER; the tool does not interpret it) and choose an output format (`console`, `json`, `markdown`, `sarif`, `oscal`, `csv`):
    ```bash
    comint-osquery . --classification "UNCLASSIFIED//FOR PUBLIC RELEASE" --format json
    ```
@@ -51,13 +51,31 @@ pip install -e ../../shared
 pip install -e .
 ```
 
-## Demo
+## Demos — real-use-case library
+
+Each `demos/<NN-name>/` holds osquery snapshot JSON in the tool's real input
+shape (`{query_name: [failing rows…]}`) plus a `SCENARIO.md` that explains where
+the data came from, the exact run command, and how to act on the result.
+
+| Demo | Scenario | Outcome |
+|------|----------|---------|
+| `01-failing-host` | Un-hardened Ubuntu host | 4 findings, mixed severity |
+| `02-clean-baseline` | Hardened RHEL 9 golden image | 0 findings — CI baseline |
+| `03-fips-violation` | FIPS 140 disabled after kernel update | 1 VERY_HIGH (crypto) |
+| `04-selinux-permissive` | SELinux permissive + auditd down | 2 findings, both `T1562.001` |
+| `05-unsigned-kmod` | Unsigned DKMS modules on Secure Boot | 1 HIGH (`T1547.006`) |
+| `06-no-auditd` | Audit accountability gap | 1 VERY_HIGH (`AU-3`) |
+| `07-smartcard-bypass` | CAC/PIV off + SSH root login | 2 HIGH auth findings |
+| `08-fleet-rollup` | 3 hosts, one folder, one scan | 4 findings, per-host attribution |
+| `09-mixed-workstation` | Blank-password kiosk + world-writable dir | severity-triage / `--fail-on` |
+| `10-parse-error` | Truncated snapshot | graceful LOW `CO-PARSE`, no crash |
 
 ```bash
 comint-osquery demos/01-failing-host/
+comint-osquery demos/08-fleet-rollup/ --format markdown   # roll a fleet up
 ```
 
-Outputs are available in five formats — all respect an operator-supplied
+Outputs are available in **six** formats — all respect an operator-supplied
 classification banner (passed via `--classification`):
 
 ```bash
@@ -65,7 +83,8 @@ comint-osquery <target> --format=console     # default
 comint-osquery <target> --format=json
 comint-osquery <target> --format=sarif       # for code-scanning pipelines
 comint-osquery <target> --format=markdown    # for PRs / briefings
-comint-osquery <target> --format=oscal       # OSCAL Assessment Results skeleton
+comint-osquery <target> --format=oscal       # OSCAL 1.1.2 Assessment Results
+comint-osquery <target> --format=csv         # flat POA&M / spreadsheet import
 ```
 
 ## Classification banner
@@ -85,7 +104,12 @@ Every finding can carry references to:
 - **MITRE ATT&CK** technique IDs (e.g. `T1078`)
 - **CCI** (Control Correlation Identifier)
 
-These are emitted in JSON, SARIF, and the OSCAL skeleton.
+Every query in the STIG pack now ships a published **MITRE ATT&CK Enterprise**
+technique describing the adversary behaviour the failing configuration would
+enable (e.g. SSH root login → `T1021.004`, FIPS disabled → `T1600`, auditd/SELinux
+off → `T1562.001`) for blue-team detection-engineering and RMF crosswalks.
+
+These are emitted in JSON, SARIF, CSV, and the OSCAL Assessment Results.
 
 ## CI / RMF integration
 

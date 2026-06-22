@@ -1,0 +1,15 @@
+{
+  "selinux_not_enforcing": [
+    {
+      "key": "mode",
+      "value": "permissive"
+    }
+  ],
+  "audit_daemon_not_running": [
+    {
+      "name": "auditd"
+    }
+  ],
+  "fips_not_enforced": [],
+  "world_writable_root_files": []
+}

@@ -1,0 +1,14 @@
+{
+  "unsigned_kernel_modules": [
+    {
+      "name": "nvidia",
+      "signed": "0"
+    },
+    {
+      "name": "vboxdrv",
+      "signed": "0"
+    }
+  ],
+  "fips_not_enforced": [],
+  "selinux_not_enforcing": []
+}

@@ -1,0 +1,16 @@
+{
+  "smartcard_not_required": [
+    {
+      "label": "pam_pkcs11",
+      "enabled": "0"
+    }
+  ],
+  "ssh_root_login_permitted": [
+    {
+      "path": "/etc/ssh/sshd_config",
+      "value": "yes"
+    }
+  ],
+  "users_no_password_required": [],
+  "fips_not_enforced": []
+}

@@ -8,37 +8,50 @@ from pathlib import Path
 from cognis_mil import ScanResult, Finding, Severity
 
 # ---- STIG-aligned query pack ----
+# Each entry carries its NIST 800-53 control, DISA STIG rule, CCI, and a
+# MITRE ATT&CK (Enterprise) technique that the *failing* condition maps to.
+# ATT&CK technique IDs are real, published technique identifiers — they describe
+# the adversary behaviour the weak configuration would enable, for blue-team
+# detection-engineering and RMF crosswalk purposes only.
 STIG_PACK = {
     "users_no_password_required":  {"sql": "SELECT username FROM users WHERE password_status='empty'",
                                     "nist":"IA-5","stig":"V-242418","cci":"CCI-000196",
+                                    "attack":"T1078",        # Valid Accounts
                                     "severity": Severity.VERY_HIGH,
                                     "title":"Account allows blank password"},
     "ssh_root_login_permitted":    {"sql": "SELECT * FROM augeas WHERE path LIKE '/etc/ssh/sshd_config' AND label='PermitRootLogin' AND value='yes'",
                                     "nist":"AC-6(2)","stig":"V-238213","cci":"CCI-000206",
+                                    "attack":"T1021.004",    # Remote Services: SSH
                                     "severity": Severity.HIGH,
                                     "title":"SSH root login permitted"},
     "unsigned_kernel_modules":     {"sql":"SELECT name FROM kernel_modules WHERE signed='0'",
                                     "nist":"SI-7","stig":"V-238230",
+                                    "attack":"T1547.006",    # Kernel Modules and Extensions
                                     "severity": Severity.HIGH,
                                     "title":"Unsigned kernel module loaded"},
     "fips_not_enforced":           {"sql":"SELECT * FROM augeas WHERE path='/proc/sys/crypto/fips_enabled' AND value='0'",
                                     "nist":"SC-13","stig":"V-238298","cci":"CCI-002450",
+                                    "attack":"T1600",        # Weaken Encryption
                                     "severity": Severity.VERY_HIGH,
                                     "title":"FIPS 140 mode disabled"},
     "smartcard_not_required":      {"sql":"SELECT * FROM augeas WHERE label='pam_pkcs11' AND enabled='0'",
                                     "nist":"IA-2(11)","stig":"V-238219","cci":"CCI-000765",
+                                    "attack":"T1556",        # Modify Authentication Process
                                     "severity": Severity.HIGH,
                                     "title":"PIV/CAC not required for authentication"},
     "audit_daemon_not_running":    {"sql":"SELECT * FROM processes WHERE name='auditd'",
                                     "nist":"AU-3","stig":"V-238201",
+                                    "attack":"T1562.001",    # Impair Defenses: Disable or Modify Tools
                                     "severity": Severity.VERY_HIGH,
                                     "title":"auditd not running"},
     "world_writable_root_files":   {"sql":"SELECT path FROM file WHERE mode LIKE '%w_%' AND uid=0",
                                     "nist":"AC-3","stig":"V-238382",
+                                    "attack":"T1222.002",    # File/Dir Permissions Modification: Linux/Mac
                                     "severity": Severity.HIGH,
                                     "title":"World-writable file owned by root"},
     "selinux_not_enforcing":       {"sql":"SELECT * FROM selinux_settings WHERE key='mode' AND value!='enforcing'",
                                     "nist":"AC-6","stig":"V-238311",
+                                    "attack":"T1562.001",    # Impair Defenses: Disable or Modify Tools
                                     "severity": Severity.HIGH,
                                     "title":"SELinux not in enforcing mode"},
 }
@@ -80,7 +93,7 @@ def scan(target=".", **opts):
                                   description=f"{len(rows)} row(s) matched STIG-failing condition",
                                   location=str(jf),
                                   nist_800_53=cfg["nist"], disa_stig=cfg["stig"],
-                                  cci=cfg.get("cci",""),
+                                  cci=cfg.get("cci",""), mitre_attack=cfg.get("attack",""),
                                   remediation=f"Run remediation playbook for {cfg['stig']}"))
     r.finalize(); return r
 

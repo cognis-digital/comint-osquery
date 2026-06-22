@@ -1,0 +1,18 @@
+{
+  "users_no_password_required": [
+    {
+      "username": "kiosk"
+    }
+  ],
+  "world_writable_root_files": [
+    {
+      "path": "/opt/vendor/spool"
+    }
+  ],
+  "unsigned_kernel_modules": [],
+  "ssh_root_login_permitted": [],
+  "fips_not_enforced": [],
+  "smartcard_not_required": [],
+  "audit_daemon_not_running": [],
+  "selinux_not_enforcing": []
+}

@@ -8,7 +8,7 @@ Public, unclassified, EAR99. Provides:
   - Audit-log primitive (hash-chained, tamper-evident, local-only)
 """
 from .models import Severity, Finding, ScanResult
-from .exporters import to_console, to_json, to_sarif, to_markdown, to_oscal_skeleton
+from .exporters import to_console, to_json, to_sarif, to_markdown, to_oscal_skeleton, to_csv
 from .cli import make_cli
 from .audit import AuditLog
 from .classmark import ClassificationBanner  # re-export for convenience

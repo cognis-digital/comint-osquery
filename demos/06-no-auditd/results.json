@@ -1,0 +1,10 @@
+{
+  "audit_daemon_not_running": [
+    {
+      "name": "auditd"
+    }
+  ],
+  "users_no_password_required": [],
+  "ssh_root_login_permitted": [],
+  "world_writable_root_files": []
+}

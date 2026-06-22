@@ -1,0 +1,5 @@
+{
+  "fips_not_enforced": [
+    {
+      "path": "/proc/sys/crypto/fips_enabled",
+      "value": "0"

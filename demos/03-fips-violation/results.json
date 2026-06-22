@@ -1,0 +1,11 @@
+{
+  "fips_not_enforced": [
+    {
+      "path": "/proc/sys/crypto/fips_enabled",
+      "value": "0"
+    }
+  ],
+  "smartcard_not_required": [],
+  "selinux_not_enforcing": [],
+  "audit_daemon_not_running": []
+}

@@ -1,0 +1,15 @@
+{
+  "ssh_root_login_permitted": [
+    {
+      "path": "/etc/ssh/sshd_config",
+      "value": "yes"
+    }
+  ],
+  "world_writable_root_files": [
+    {
+      "path": "/var/www/uploads"
+    }
+  ],
+  "fips_not_enforced": [],
+  "selinux_not_enforcing": []
+}

@@ -1,0 +1,8 @@
+{
+  "users_no_password_required": [],
+  "ssh_root_login_permitted": [],
+  "fips_not_enforced": [],
+  "selinux_not_enforcing": [],
+  "audit_daemon_not_running": [],
+  "world_writable_root_files": []
+}

@@ -1,10 +1,10 @@
 import argparse, sys
-from .exporters import to_console, to_json, to_markdown, to_sarif, to_oscal_skeleton
+from .exporters import to_console, to_json, to_markdown, to_sarif, to_oscal_skeleton, to_csv
 
 def make_cli(tool_name, scan_fn, version="0.1.0", extra_args=None):
     p = argparse.ArgumentParser(prog=tool_name, description=f"{tool_name} — Cognis Digital · Military/IC ecosystem")
     p.add_argument("target", nargs="?", default=".", help="Path/target")
-    p.add_argument("--format", choices=["console","json","markdown","sarif","oscal"], default="console")
+    p.add_argument("--format", choices=["console","json","markdown","sarif","oscal","csv"], default="console")
     p.add_argument("--out", help="Write output to file")
     p.add_argument("--fail-on", choices=["very_high","high","moderate","low","none"], default="none")
     p.add_argument("--classification", default="UNCLASSIFIED//FOR PUBLIC RELEASE",
@@ -17,7 +17,7 @@ def make_cli(tool_name, scan_fn, version="0.1.0", extra_args=None):
                                       if k not in {"target","format","out","fail_on","version","classification"}})
     result.classification_placeholder = args.classification
     if hasattr(result, "finalize") and not result.composite_score: result.finalize()
-    fmt = {"console":to_console,"json":to_json,"markdown":to_markdown,"sarif":to_sarif,"oscal":to_oscal_skeleton}[args.format]
+    fmt = {"console":to_console,"json":to_json,"markdown":to_markdown,"sarif":to_sarif,"oscal":to_oscal_skeleton,"csv":to_csv}[args.format]
     out = fmt(result)
     if args.out:
         open(args.out,"w").write(out); print(f"Wrote {args.out}", file=sys.stderr)

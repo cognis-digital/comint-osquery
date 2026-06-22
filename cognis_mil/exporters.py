@@ -1,3 +1,5 @@
+import csv as _csv
+import io
 import json
 from .models import Severity, ScanResult
 import time
@@ -41,6 +43,29 @@ def to_console(r: ScanResult) -> str:
     lines.append(f"  {r.classification_placeholder}")
     lines.append("═" * 70)
     return "\n".join(lines)
+
+def to_csv(r: ScanResult) -> str:
+    """Flat one-row-per-finding CSV for spreadsheet / GRC / POA&M import.
+
+    RFC 4180 quoting (via the stdlib csv module). The classification banner and
+    scan-level summary ride along as the first two `#`-prefixed comment lines so
+    a single file is self-describing without losing the tabular body.
+    """
+    buf = io.StringIO()
+    buf.write(f"# classification,{r.classification_placeholder}\n")
+    buf.write(f"# tool,{r.tool_name},version,{r.tool_version},"
+              f"score,{r.composite_score},risk,{r.risk_level},"
+              f"items_scanned,{r.items_scanned},findings,{r.total_findings()}\n")
+    w = _csv.writer(buf, lineterminator="\n")
+    w.writerow(["id", "severity", "title", "description", "location",
+                "nist_800_53", "disa_stig", "cci", "mitre_attack",
+                "category", "remediation"])
+    for f in r.findings:
+        w.writerow([f.id, f.severity.value, f.title, f.description, f.location,
+                    f.nist_800_53, f.disa_stig, f.cci, f.mitre_attack,
+                    f.category, f.remediation])
+    return buf.getvalue()
+
 
 def to_markdown(r: ScanResult) -> str:
     out = [
