@@ -1,0 +1,95 @@
+{
+ "catalog": {
+  "uuid": "ea7c7688-79c5-463b-a91b-0650f2d98623",
+  "metadata": {
+   "title": "Electronic (OSCAL) Version of NIST SP 800-53 Rev 5.2.0 Controls and SP 800-53A Rev 5.2.0 Assessment Procedures",
+   "version": "5.2.0"
+  },
+  "groups": [
+   {
+    "id": "ac",
+    "class": "family",
+    "title": "Access Control",
+    "controls": [
+     {
+      "id": "ac-3",
+      "class": "SP800-53",
+      "title": "Access Enforcement"
+     },
+     {
+      "id": "ac-6",
+      "class": "SP800-53",
+      "title": "Least Privilege",
+      "controls": [
+       {
+        "id": "ac-6.2",
+        "class": "SP800-53-enhancement",
+        "title": "Non-privileged Access for Nonsecurity Functions"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "id": "au",
+    "class": "family",
+    "title": "Audit and Accountability",
+    "controls": [
+     {
+      "id": "au-3",
+      "class": "SP800-53",
+      "title": "Content of Audit Records"
+     }
+    ]
+   },
+   {
+    "id": "ia",
+    "class": "family",
+    "title": "Identification and Authentication",
+    "controls": [
+     {
+      "id": "ia-2",
+      "class": "SP800-53",
+      "title": "Identification and Authentication (Organizational Users)",
+      "controls": [
+       {
+        "id": "ia-2.11",
+        "class": "SP800-53-enhancement",
+        "title": "Remote Access \u2014 Separate Device"
+       }
+      ]
+     },
+     {
+      "id": "ia-5",
+      "class": "SP800-53",
+      "title": "Authenticator Management"
+     }
+    ]
+   },
+   {
+    "id": "sc",
+    "class": "family",
+    "title": "System and Communications Protection",
+    "controls": [
+     {
+      "id": "sc-13",
+      "class": "SP800-53",
+      "title": "Cryptographic Protection"
+     }
+    ]
+   },
+   {
+    "id": "si",
+    "class": "family",
+    "title": "System and Information Integrity",
+    "controls": [
+     {
+      "id": "si-7",
+      "class": "SP800-53",
+      "title": "Software, Firmware, and Information Integrity"
+     }
+    ]
+   }
+  ]
+ }
+}

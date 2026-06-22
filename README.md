@@ -111,6 +111,59 @@ off → `T1562.001`) for blue-team detection-engineering and RMF crosswalks.
 
 These are emitted in JSON, SARIF, CSV, and the OSCAL Assessment Results.
 
+## Authoritative data feeds (edge / air-gap)
+
+comint-osquery ships a keyless ingestion layer that pulls **real, public,
+authoritative compliance feeds**, caches them to disk, and re-serves them
+**offline** — so it keeps enriching findings on disconnected / air-gapped gear.
+
+| Feed id | Source | Used for |
+|---|---|---|
+| `oscal-800-53-rev5-catalog` | NIST SP 800-53 rev5 catalog, OSCAL JSON — [usnistgov/oscal-content](https://github.com/usnistgov/oscal-content) ([raw catalog](https://raw.githubusercontent.com/usnistgov/oscal-content/main/nist.gov/SP800-53/rev5/json/NIST_SP-800-53_rev5_catalog.json)) | Resolve a finding's control id to its **official NIST title** (e.g. `SC-13` → "Cryptographic Protection") |
+| `attack-nist-mappings` | CTID Mappings Explorer ATT&CK → NIST 800-53 rev5 crosswalk — [center-for-threat-informed-defense/mappings-explorer](https://github.com/center-for-threat-informed-defense/mappings-explorer) | Expand a finding's ATT&CK technique into the **full CTID countermeasure control set** (defense-in-depth coverage) |
+
+### `feeds` command
+
+```bash
+comint-osquery feeds list                       # the relevant feeds + cache freshness
+comint-osquery feeds update                      # fetch + cache both feeds
+comint-osquery feeds get oscal-800-53-rev5-catalog --offline
+comint-osquery feeds enrich demos/01-failing-host --offline   # scan + enrich
+```
+
+`feeds enrich` runs a scan and attaches a real `control_title` and an
+`attack_countermeasures` control list to every finding, both sourced from the
+feeds above. Example (trimmed):
+
+```json
+"CO-FIPS_NOT_E": {
+  "nist_800_53": "SC-13",
+  "control_title": "Cryptographic Protection",
+  "mitre_attack": "T1600",
+  "attack_countermeasures": ["SC-12", "SC-13", "SC-28", "..."]
+}
+```
+
+### Edge / air-gap (offline + snapshot)
+
+Every feed is fetched over HTTPS with a UA and cached under
+`COGNIS_FEEDS_CACHE` (default `~/.cache/cognis-feeds`). `--offline` serves the
+cache only and **never touches the network**. To move feeds into a disconnected
+enclave (sneakernet):
+
+```bash
+# On a connected host:
+comint-osquery feeds update
+comint-osquery feeds snapshot-export feeds.tar.gz
+
+# Carry feeds.tar.gz across the air gap, then on the enclave host:
+comint-osquery feeds snapshot-import feeds.tar.gz
+comint-osquery feeds enrich <target> --offline          # works fully offline
+```
+
+A small trimmed sample cache is committed at `tests/fixtures/feeds-cache/` so
+tests and the [demo](demos/11-feed-enriched/) run green with **zero network**.
+
 ## CI / RMF integration
 
 ```yaml

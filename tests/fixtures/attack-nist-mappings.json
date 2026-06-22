@@ -1,0 +1,629 @@
+{
+ "metadata": {
+  "mapping_version": "",
+  "technology_domain": "enterprise",
+  "attack_version": "16.1",
+  "mapping_framework": "nist_800_53",
+  "mapping_framework_version": "rev5",
+  "author": null,
+  "contact": null,
+  "organization": null,
+  "creation_date": "01/13/2022",
+  "last_update": "04/16/2025",
+  "mapping_types": {
+   "mitigates": {
+    "name": "mitigates",
+    "description": ""
+   }
+  },
+  "capability_groups": {
+   "AC": "Access Control",
+   "CA": "Security Assessment and Authorization",
+   "CM": "Configuration Management",
+   "SC": "System and Communications Protection",
+   "SI": "System and Information Integrity",
+   "CP": "Contingency Planning",
+   "IA": "Identification and Authentication",
+   "SA": "System and Services Acquisition",
+   "RA": "Risk Assessment",
+   "MP": "Media Protection",
+   "SR": "Supply Chain Risk Management"
+  }
+ },
+ "mapping_objects": [
+  {
+   "capability_id": "CA-07",
+   "attack_object_id": "T1078",
+   "attack_object_name": "Valid Accounts",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "CA-07",
+   "attack_object_id": "T1556",
+   "attack_object_name": "Modify Authentication Process",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "CM-06",
+   "attack_object_id": "T1078",
+   "attack_object_name": "Valid Accounts",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "CM-06",
+   "attack_object_id": "T1556",
+   "attack_object_name": "Modify Authentication Process",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "CM-05",
+   "attack_object_id": "T1078",
+   "attack_object_name": "Valid Accounts",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "CM-05",
+   "attack_object_id": "T1556",
+   "attack_object_name": "Modify Authentication Process",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "IA-05",
+   "attack_object_id": "T1078",
+   "attack_object_name": "Valid Accounts",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "IA-05",
+   "attack_object_id": "T1556",
+   "attack_object_name": "Modify Authentication Process",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "SA-10",
+   "attack_object_id": "T1078",
+   "attack_object_name": "Valid Accounts",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "IA-12",
+   "attack_object_id": "T1078",
+   "attack_object_name": "Valid Accounts",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "SA-11",
+   "attack_object_id": "T1078",
+   "attack_object_name": "Valid Accounts",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "SA-15",
+   "attack_object_id": "T1078",
+   "attack_object_name": "Valid Accounts",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "SA-17",
+   "attack_object_id": "T1078",
+   "attack_object_name": "Valid Accounts",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "SA-03",
+   "attack_object_id": "T1078",
+   "attack_object_name": "Valid Accounts",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "SA-04",
+   "attack_object_id": "T1078",
+   "attack_object_name": "Valid Accounts",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "IA-13",
+   "attack_object_id": "T1078",
+   "attack_object_name": "Valid Accounts",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "IA-13",
+   "attack_object_id": "T1556",
+   "attack_object_name": "Modify Authentication Process",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "CA-03",
+   "attack_object_id": "T1078",
+   "attack_object_name": "Valid Accounts",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "SC-28",
+   "attack_object_id": "T1078",
+   "attack_object_name": "Valid Accounts",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "SC-39",
+   "attack_object_id": "T1556",
+   "attack_object_name": "Modify Authentication Process",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "RA-05",
+   "attack_object_id": "T1078",
+   "attack_object_name": "Valid Accounts",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "SC-43",
+   "attack_object_id": "T1078",
+   "attack_object_name": "Valid Accounts",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "SI-07",
+   "attack_object_id": "T1556",
+   "attack_object_name": "Modify Authentication Process",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "AC-20",
+   "attack_object_id": "T1556",
+   "attack_object_name": "Modify Authentication Process",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "CM-02",
+   "attack_object_id": "T1556",
+   "attack_object_name": "Modify Authentication Process",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "SA-08",
+   "attack_object_id": "T1078",
+   "attack_object_name": "Valid Accounts",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "IA-02",
+   "attack_object_id": "T1078",
+   "attack_object_name": "Valid Accounts",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "IA-02",
+   "attack_object_id": "T1556",
+   "attack_object_name": "Modify Authentication Process",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "CM-07",
+   "attack_object_id": "T1078",
+   "attack_object_name": "Valid Accounts",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "CM-07",
+   "attack_object_id": "T1556",
+   "attack_object_name": "Modify Authentication Process",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "SI-04",
+   "attack_object_id": "T1078",
+   "attack_object_name": "Valid Accounts",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "SI-04",
+   "attack_object_id": "T1556",
+   "attack_object_name": "Modify Authentication Process",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "AC-02",
+   "attack_object_id": "T1078",
+   "attack_object_name": "Valid Accounts",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "AC-03",
+   "attack_object_id": "T1078",
+   "attack_object_name": "Valid Accounts",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "AC-05",
+   "attack_object_id": "T1078",
+   "attack_object_name": "Valid Accounts",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "AC-06",
+   "attack_object_id": "T1078",
+   "attack_object_name": "Valid Accounts",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "AC-02",
+   "attack_object_id": "T1556",
+   "attack_object_name": "Modify Authentication Process",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "AC-03",
+   "attack_object_id": "T1556",
+   "attack_object_name": "Modify Authentication Process",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "AC-05",
+   "attack_object_id": "T1556",
+   "attack_object_name": "Modify Authentication Process",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "AC-06",
+   "attack_object_id": "T1556",
+   "attack_object_name": "Modify Authentication Process",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "AC-07",
+   "attack_object_id": "T1556",
+   "attack_object_name": "Modify Authentication Process",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "SC-07",
+   "attack_object_id": "T1078",
+   "attack_object_name": "Valid Accounts",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "CA-07",
+   "attack_object_id": "T1222.002",
+   "attack_object_name": "Linux and Mac File and Directory Permissions Modification",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "CA-07",
+   "attack_object_id": "T1562.001",
+   "attack_object_name": "Disable or Modify Tools",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "CM-06",
+   "attack_object_id": "T1021.004",
+   "attack_object_name": "SSH",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "CM-06",
+   "attack_object_id": "T1222.002",
+   "attack_object_name": "Linux and Mac File and Directory Permissions Modification",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "CM-06",
+   "attack_object_id": "T1547.006",
+   "attack_object_name": "Kernel Modules and Extensions",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "CM-06",
+   "attack_object_id": "T1562.001",
+   "attack_object_name": "Disable or Modify Tools",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "CM-05",
+   "attack_object_id": "T1021.004",
+   "attack_object_name": "SSH",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "CM-05",
+   "attack_object_id": "T1222.002",
+   "attack_object_name": "Linux and Mac File and Directory Permissions Modification",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "CM-05",
+   "attack_object_id": "T1547.006",
+   "attack_object_name": "Kernel Modules and Extensions",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "CM-05",
+   "attack_object_id": "T1562.001",
+   "attack_object_name": "Disable or Modify Tools",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "IA-05",
+   "attack_object_id": "T1021.004",
+   "attack_object_name": "SSH",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "AC-17",
+   "attack_object_id": "T1021.004",
+   "attack_object_name": "SSH",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "IA-08",
+   "attack_object_id": "T1547.006",
+   "attack_object_name": "Kernel Modules and Extensions",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "SI-14",
+   "attack_object_id": "T1547.006",
+   "attack_object_name": "Kernel Modules and Extensions",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "IA-04",
+   "attack_object_id": "T1547.006",
+   "attack_object_name": "Kernel Modules and Extensions",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "SI-16",
+   "attack_object_id": "T1547.006",
+   "attack_object_name": "Kernel Modules and Extensions",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "SI-02",
+   "attack_object_id": "T1547.006",
+   "attack_object_name": "Kernel Modules and Extensions",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "RA-05",
+   "attack_object_id": "T1021.004",
+   "attack_object_name": "SSH",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "RA-05",
+   "attack_object_id": "T1547.006",
+   "attack_object_name": "Kernel Modules and Extensions",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "CM-08",
+   "attack_object_id": "T1021.004",
+   "attack_object_name": "SSH",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "SI-10",
+   "attack_object_id": "T1547.006",
+   "attack_object_name": "Kernel Modules and Extensions",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "SI-03",
+   "attack_object_id": "T1547.006",
+   "attack_object_name": "Kernel Modules and Extensions",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "SI-03",
+   "attack_object_id": "T1562.001",
+   "attack_object_name": "Disable or Modify Tools",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "SI-07",
+   "attack_object_id": "T1222.002",
+   "attack_object_name": "Linux and Mac File and Directory Permissions Modification",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "SI-07",
+   "attack_object_id": "T1547.006",
+   "attack_object_name": "Kernel Modules and Extensions",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "SI-07",
+   "attack_object_id": "T1562.001",
+   "attack_object_name": "Disable or Modify Tools",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "AC-20",
+   "attack_object_id": "T1021.004",
+   "attack_object_name": "SSH",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "AC-16",
+   "attack_object_id": "T1222.002",
+   "attack_object_name": "Linux and Mac File and Directory Permissions Modification",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "CM-02",
+   "attack_object_id": "T1021.004",
+   "attack_object_name": "SSH",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "CM-02",
+   "attack_object_id": "T1562.001",
+   "attack_object_name": "Disable or Modify Tools",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "IA-02",
+   "attack_object_id": "T1021.004",
+   "attack_object_name": "SSH",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "IA-02",
+   "attack_object_id": "T1222.002",
+   "attack_object_name": "Linux and Mac File and Directory Permissions Modification",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "IA-02",
+   "attack_object_id": "T1547.006",
+   "attack_object_name": "Kernel Modules and Extensions",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "IA-02",
+   "attack_object_id": "T1562.001",
+   "attack_object_name": "Disable or Modify Tools",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "CM-07",
+   "attack_object_id": "T1547.006",
+   "attack_object_name": "Kernel Modules and Extensions",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "CM-07",
+   "attack_object_id": "T1562.001",
+   "attack_object_name": "Disable or Modify Tools",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "SI-04",
+   "attack_object_id": "T1021.004",
+   "attack_object_name": "SSH",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "SI-04",
+   "attack_object_id": "T1222.002",
+   "attack_object_name": "Linux and Mac File and Directory Permissions Modification",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "SI-04",
+   "attack_object_id": "T1547.006",
+   "attack_object_name": "Kernel Modules and Extensions",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "SI-04",
+   "attack_object_id": "T1562.001",
+   "attack_object_name": "Disable or Modify Tools",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "AC-02",
+   "attack_object_id": "T1021.004",
+   "attack_object_name": "SSH",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "AC-03",
+   "attack_object_id": "T1021.004",
+   "attack_object_name": "SSH",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "AC-05",
+   "attack_object_id": "T1021.004",
+   "attack_object_name": "SSH",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "AC-06",
+   "attack_object_id": "T1021.004",
+   "attack_object_name": "SSH",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "AC-07",
+   "attack_object_id": "T1021.004",
+   "attack_object_name": "SSH",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "AC-02",
+   "attack_object_id": "T1222.002",
+   "attack_object_name": "Linux and Mac File and Directory Permissions Modification",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "AC-03",
+   "attack_object_id": "T1222.002",
+   "attack_object_name": "Linux and Mac File and Directory Permissions Modification",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "AC-05",
+   "attack_object_id": "T1222.002",
+   "attack_object_name": "Linux and Mac File and Directory Permissions Modification",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "AC-06",
+   "attack_object_id": "T1222.002",
+   "attack_object_name": "Linux and Mac File and Directory Permissions Modification",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "AC-02",
+   "attack_object_id": "T1547.006",
+   "attack_object_name": "Kernel Modules and Extensions",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "AC-03",
+   "attack_object_id": "T1547.006",
+   "attack_object_name": "Kernel Modules and Extensions",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "AC-05",
+   "attack_object_id": "T1547.006",
+   "attack_object_name": "Kernel Modules and Extensions",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "AC-06",
+   "attack_object_id": "T1547.006",
+   "attack_object_name": "Kernel Modules and Extensions",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "AC-02",
+   "attack_object_id": "T1562.001",
+   "attack_object_name": "Disable or Modify Tools",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "AC-03",
+   "attack_object_id": "T1562.001",
+   "attack_object_name": "Disable or Modify Tools",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "AC-05",
+   "attack_object_id": "T1562.001",
+   "attack_object_name": "Disable or Modify Tools",
+   "mapping_type": "mitigates"
+  },
+  {
+   "capability_id": "AC-06",
+   "attack_object_id": "T1562.001",
+   "attack_object_name": "Disable or Modify Tools",
+   "mapping_type": "mitigates"
+  }
+ ]
+}

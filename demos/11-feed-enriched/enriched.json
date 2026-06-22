@@ -1,0 +1,85 @@
+{
+  "tool": "comint-osquery",
+  "target": "demos/01-failing-host",
+  "findings": 4,
+  "enrichment": {
+    "CO-USERS_NO_P": {
+      "nist_800_53": "IA-5",
+      "control_title": "Authenticator Management",
+      "mitre_attack": "T1078",
+      "attack_countermeasures": [
+        "AC-02",
+        "AC-03",
+        "AC-05",
+        "AC-06",
+        "CA-03",
+        "CA-07",
+        "CM-05",
+        "CM-06",
+        "CM-07",
+        "IA-02",
+        "IA-05",
+        "IA-12",
+        "IA-13",
+        "RA-05",
+        "SA-03",
+        "SA-04",
+        "SA-08",
+        "SA-10",
+        "SA-11",
+        "SA-15",
+        "SA-17",
+        "SC-07",
+        "SC-28",
+        "SC-43",
+        "SI-04"
+      ]
+    },
+    "CO-SSH_ROOT_L": {
+      "nist_800_53": "AC-6(2)",
+      "control_title": "Non-privileged Access for Nonsecurity Functions",
+      "mitre_attack": "T1021.004",
+      "attack_countermeasures": [
+        "AC-02",
+        "AC-03",
+        "AC-05",
+        "AC-06",
+        "AC-07",
+        "AC-17",
+        "AC-20",
+        "CM-02",
+        "CM-05",
+        "CM-06",
+        "CM-08",
+        "IA-02",
+        "IA-05",
+        "RA-05",
+        "SI-04"
+      ]
+    },
+    "CO-FIPS_NOT_E": {
+      "nist_800_53": "SC-13",
+      "control_title": "Cryptographic Protection",
+      "mitre_attack": "T1600",
+      "attack_countermeasures": []
+    },
+    "CO-WORLD_WRIT": {
+      "nist_800_53": "AC-3",
+      "control_title": "Access Enforcement",
+      "mitre_attack": "T1222.002",
+      "attack_countermeasures": [
+        "AC-02",
+        "AC-03",
+        "AC-05",
+        "AC-06",
+        "AC-16",
+        "CA-07",
+        "CM-05",
+        "CM-06",
+        "IA-02",
+        "SI-04",
+        "SI-07"
+      ]
+    }
+  }
+}
