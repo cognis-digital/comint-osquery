@@ -1,0 +1,3 @@
+$ comint-osquery-emit --version
+
+comint-osquery 0.1.0

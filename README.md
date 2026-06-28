@@ -5,6 +5,69 @@
 
 > DISA STIG query pack + RMF mapper. Cognis additions sit on top of unmodified osquery.
 
+
+<!-- cognis:example:start -->
+## 🔎 Example output
+
+Real, reproducible output from the tool — runs offline:
+
+```console
+$ comint-osquery-emit --version
+comint-osquery 0.1.0
+```
+
+```console
+$ comint-osquery-emit --help
+usage: comint-osquery [-h] [--format {console,json,markdown,sarif,oscal,csv}]
+                      [--out OUT]
+                      [--fail-on {very_high,high,moderate,low,none}]
+                      [--classification CLASSIFICATION] [-v]
+                      [target]
+
+comint-osquery — Cognis Digital · Military/IC ecosystem
+
+positional arguments:
+  target                Path/target
+
+options:
+  -h, --help            show this help message and exit
+  --format {console,json,markdown,sarif,oscal,csv}
+  --out OUT             Write output to file
+  --fail-on {very_high,high,moderate,low,none}
+  --classification CLASSIFICATION
+                        Operator-supplied banner. PLACEHOLDER. Tool does not
+                        interpret.
+  -v, --version         show program's version number and exit
+```
+
+> Blocks above are real `comint-osquery` output — reproduce them from a clone.
+
+**Sample result format** _(illustrative values — run on your own data for real findings):_
+
+```
+{
+"findings": [
+    {
+        "id": "123456",
+        "title": "Suspicious Network Activity",
+        "description": "Potential malicious activity detected on network interface 192.168.1.100",
+        "created_by": "comint-osquery",
+        "created_at": "2023-02-15T14:30:00Z",
+        "updated_at": "2023-02-15T14:30:00Z",
+        "labels": ["network", "malware"],
+        "observables": [
+            {
+                "type": "ip-dst",
+                "value": "192.168.1.100"
+            }
+        ]
+    }
+]
+}
+```
+
+<!-- cognis:example:end -->
+
 ## Usage — step by step
 
 1. **Install** the shared library once for the ecosystem, then this tool's `comint-osquery` command:
