@@ -114,7 +114,40 @@ pip install -e ../../shared
 pip install -e .
 ```
 
-## Demos — real-use-case library
+## Demos
+
+Five runnable, narrated scenarios in [`demos/`](demos/) drive the **real**
+`comint-osquery` / `cognis_mil` API over the bundled offline fixtures — no
+network, no fabricated output, each exits 0. Each targets a different audience.
+Full write-up: [`docs/DEMOS.md`](docs/DEMOS.md).
+
+```bash
+PYTHONUTF8=1 python demos/run_all.py            # all five, end to end
+PYTHONUTF8=1 python demos/03_sysadmin_fleet.py  # or just one
+```
+
+| # | Scenario | Audience | What it shows |
+|---|----------|----------|---------------|
+| 1 | `01_isso_assessment.py` | **ISSO / ISSM** | Scan → composite risk + full RMF crosswalk → OSCAL 1.1.2 SAR for eMASS |
+| 2 | `02_soc_detection.py` | **SOC / endpoint** | Emit the scheduled osquery STIG pack; map every query to its ATT&CK technique |
+| 3 | `03_sysadmin_fleet.py` | **Sysadmins / DevSecOps** | Fleet correlation (systemic vs isolated) + golden-baseline drift |
+| 4 | `04_auditor_poam.py` | **Auditors / assessors** | eMASS POA&M workbook + tamper-evident hash-chained audit trail |
+| 5 | `05_airgap_enrichment.py` | **Edge / air-gap** | Resolve official NIST titles + ATT&CK→CTID countermeasures, fully offline |
+
+How a scan flows end to end (full diagram in [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md)):
+
+```mermaid
+flowchart LR
+    osq[osquery agent<br/>scheduled pack] -->|JSON| scan[scan / scan_fleet]
+    stig[(STIG_PACK<br/>NIST+STIG+CCI+ATT&CK)] --> scan
+    scan --> findings[Findings + risk score]
+    findings --> exp[6 exporters<br/>console/json/sarif/md/oscal/csv]
+    findings --> corr[fleet correlation<br/>+ POA&M]
+    findings --> enrich[offline feed enrich<br/>OSCAL 800-53 + ATT&CK<->NIST]
+    findings --> audit[(hash-chained<br/>audit log)]
+```
+
+### Fixture library
 
 Each `demos/<NN-name>/` holds osquery snapshot JSON in the tool's real input
 shape (`{query_name: [failing rows…]}`) plus a `SCENARIO.md` that explains where

@@ -56,5 +56,7 @@ def test_systemic_fleet_demo_present_and_flat_scan():
 
 def test_every_demo_dir_has_scenario_md():
     for sub in sorted(DEMOS.iterdir()):
-        if sub.is_dir():
+        # Only the NN-name/ fixture directories carry a SCENARIO.md; skip the
+        # runnable NN_name.py scenarios' __pycache__ and other dunder dirs.
+        if sub.is_dir() and not sub.name.startswith("__"):
             assert (sub / "SCENARIO.md").exists(), f"{sub.name} missing SCENARIO.md"
