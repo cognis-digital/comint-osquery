@@ -57,13 +57,35 @@ STIG_PACK = {
 }
 
 def parse_osquery_results(json_path: Path) -> dict:
-    """Parse osquery's JSON output (scheduled-query results or single-query mode)."""
+    """Parse osquery's JSON output (scheduled-query results or single-query mode).
+
+    The compliance mapper needs the *scheduled-pack* shape — a dict keyed by
+    query name (``{query_name: [rows...]}``) — because a finding must be
+    attributed to the STIG query that produced it. ``osqueryi --json`` for a
+    *single* ad-hoc query instead emits a bare list of row dicts, which carries
+    no query name and therefore cannot be mapped to a control. Rather than
+    silently treating such a file as a clean host (a dangerous false-negative
+    for a compliance tool), we surface a clear ``_error`` so the caller records
+    a diagnostic instead of an unearned pass.
+    """
     try:
-        data = json.loads(json_path.read_text())
-    except Exception as e:
+        raw = json_path.read_text()
+    except OSError as e:
+        return {"_error": f"cannot read file: {e}"}
+    if not raw.strip():
+        return {"_error": "empty file"}
+    try:
+        data = json.loads(raw)
+    except (ValueError, TypeError) as e:
         return {"_error": str(e)}
-    # Two shapes: list of records, or dict keyed by query name
-    return data if isinstance(data, (list, dict)) else {"_error": "unknown shape"}
+    if isinstance(data, dict):
+        return data
+    if isinstance(data, list):
+        # Ad-hoc single-query output: no query name to map against.
+        return {"_error": "bare-list osquery output (single-query mode) is not "
+                          "attributable to a STIG query; use the scheduled-pack "
+                          "shape {query_name: [rows]}"}
+    return {"_error": f"unexpected JSON shape: {type(data).__name__}"}
 
 def scan(target=".", **opts):
     """Scan an osquery JSON results file for STIG violations.

@@ -291,8 +291,11 @@ def poam_items(hosts: Iterable[HostResult],
     rows = []
     hosts = sorted((h for h in hosts if h.parse_error is None),
                    key=lambda h: h.host)
-    seq = 0
     for h in hosts:
+        # Item IDs are per-asset sequential (``web01-001``, ``web01-002``, …),
+        # which is what an eMASS reviewer expects — a global counter made the
+        # first item on a second host read as ``web01-003``.
+        seq = 0
         for q in sorted(h.failing,
                         key=lambda q: (STIG_PACK[q]["nist"], q)):
             cfg = STIG_PACK[q]
