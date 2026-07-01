@@ -21,6 +21,21 @@ SCENARIOS = [
     "03_sysadmin_fleet",
     "04_auditor_poam",
     "05_airgap_enrichment",
+    "06_multiformat_export",
+    "07_parse_error_handling",
+    "08_pack_deployment",
+    "09_fleet_json_export",
+    "10_poam_json",
+    "11_classification_banner",
+    "12_airgap_snapshot",
+    "13_countermeasure_expansion",
+    "14_audit_chain",
+    "15_fail_on_gating",
+    "16_control_titles",
+    "17_drift_regression",
+    "18_full_rmf_workflow",
+    "19_attack_coverage_matrix",
+    "20_connect_emit",
 ]
 
 
